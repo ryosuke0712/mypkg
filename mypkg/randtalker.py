@@ -7,10 +7,10 @@ class RandomNumberTalker(Node):
     def __init__(self):
         super().__init__('random_number_talker')
         self.publisher_ = self.create_publisher(Int32, 'random_numbers', 10)
-        self.timer = self.create_timer(0.5, self.publish_random_number)  # 0.5秒間隔
+        self.timer = self.create_timer(0.5, self.publish_random_number)
 
     def publish_random_number(self):
-        number = random.randint(1, 100)  # 1～100のランダム整数
+        number = random.randint(1, 100)
         msg = Int32()
         msg.data = number
         self.publisher_.publish(msg)

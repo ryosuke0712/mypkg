@@ -7,7 +7,7 @@ class SumListener(Node):
         super().__init__('sum_listener')
         self.subscription = self.create_subscription(
             Int32,
-            'random_numbers',  # 発行されるトピック名
+            'random_numbers',
             self.listener_callback,
             10
         )
