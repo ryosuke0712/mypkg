@@ -19,8 +19,8 @@ jobs:
       - name: Prepare workspace
         run: |
           mkdir -p $GITHUB_WORKSPACE/ros2_ws/src
-          # ここで直接リポジトリ内のファイルを $GITHUB_WORKSPACE にコピー
-          cp -r . $GITHUB_WORKSPACE/ros2_ws/src/mypkg
+          # ここではリポジトリの内容をコピー
+          cp -r $GITHUB_WORKSPACE/* $GITHUB_WORKSPACE/ros2_ws/src/mypkg
           cd $GITHUB_WORKSPACE/ros2_ws
           source /opt/ros/foxy/setup.bash
           colcon build
