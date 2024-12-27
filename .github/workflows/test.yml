@@ -18,14 +18,15 @@ jobs:
 
       - name: Prepare workspace
         run: |
-          mkdir -p /home/ubuntu/ros2_ws/src
-          mv . /home/ubuntu/ros2_ws/src/mypkg
-          cd /home/ubuntu/ros2_ws
+          mkdir -p $GITHUB_WORKSPACE/ros2_ws/src
+          mv . $GITHUB_WORKSPACE/ros2_ws/src/mypkg
+          cd $GITHUB_WORKSPACE/ros2_ws
           source /opt/ros/foxy/setup.bash
           colcon build
 
       - name: Run Tests
         run: |
-          cd /home/ubuntu/ros2_ws
+          cd $GITHUB_WORKSPACE/ros2_ws
           source install/setup.bash
           bash ./src/mypkg/test/test_sumlistener.py
+
