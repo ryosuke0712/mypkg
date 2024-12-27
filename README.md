@@ -9,5 +9,11 @@
 
 ## 使用準備
 ### リポジトリを適当な場所にクローンしてください
-'''shell
-$ git clone 
+```shell
+$ git clone https://github.com/ryosuke0712/ros2.git
+```
+
+### ros2_wsに移動してください
+```shell
+$ cd ~/ros2_ws
+```
