@@ -19,7 +19,8 @@ jobs:
       - name: Prepare workspace
         run: |
           mkdir -p $GITHUB_WORKSPACE/ros2_ws/src
-          mv . $GITHUB_WORKSPACE/ros2_ws/src/mypkg
+          # ここで直接リポジトリ内のファイルを $GITHUB_WORKSPACE にコピー
+          cp -r . $GITHUB_WORKSPACE/ros2_ws/src/mypkg
           cd $GITHUB_WORKSPACE/ros2_ws
           source /opt/ros/foxy/setup.bash
           colcon build
@@ -29,4 +30,3 @@ jobs:
           cd $GITHUB_WORKSPACE/ros2_ws
           source install/setup.bash
           bash ./src/mypkg/test/test_sumlistener.py
-
