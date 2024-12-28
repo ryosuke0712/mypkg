@@ -2,12 +2,21 @@ name: test
 on: push
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container: ryuichiueda/ubuntu22.04-ros2:latest
     steps:
       - uses: actions/checkout@v2
-      - name: build and test
-        run:
-          rsync -av ./ /root/ros2_ws/src/mypkg/
+
+      - name: Prepare workspace
+        run: |
+          sudo mkdir -p /root/ros2_ws/src/mypkg/
+          sudo chmod -R 777 /root/ros2_ws
+
+      - name: Sync files
+        run: |
+          rsync -av --progress ./ /root/ros2_ws/src/mypkg/ || { echo "rsync failed"; exit 1; }
+
+      - name: Build and test
+        run: |
           cd /root/ros2_ws
           bash -xv ./src/mypkg/test/test.bash /root
