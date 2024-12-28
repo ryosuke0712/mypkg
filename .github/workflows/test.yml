@@ -24,3 +24,10 @@ jobs:
           /root/ros2_ws/install/mypkg/lib/mypkg/talker --ros-args || echo "Talker failed"
           /root/ros2_ws/install/mypkg/lib/mypkg/listener --ros-args || echo "Listener failed"
 
+      - name: Test randtalker and sumlistener manually
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          source /root/ros2_ws/install/setup.bash
+          /root/ros2_ws/install/mypkg/lib/mypkg/randtalker --ros-args || echo "Randtalker failed"
+          /root/ros2_ws/install/mypkg/lib/mypkg/sumlistener --ros-args || echo "Sumlistener failed"
