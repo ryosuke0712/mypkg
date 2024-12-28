@@ -24,8 +24,23 @@ $ cd ~/ros2_ws
 ### 使用例
 ```shell
 $ ros2 run mypkg randtalker
-```
 [INFO] [randtalker]: Publishing (randtalker): 42
-
 [INFO] [randtalker]: Publishing (randtalker): 17
+```
+
+## sumlistener.py
+random_numbersトピックからメッセージを受信し、受け取った数値を合計していきます。
+
+### 使用例
+```shell
+$ ros2 run mypkg sumlistener
+[INFO] [sumlistener]: Received: 42, Running Total: 42
+[INFO] [sumlistener]: Received: 17, Running Total: 59
+```
+
+## LICENSE
+* このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます。
+
+## Copyright
+* © 2024 Ryosuke Kambara
 
