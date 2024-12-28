@@ -26,4 +26,6 @@ $ cd ~/ros2_ws
 $ ros2 run mypkg randtalker
 ```
 [INFO] [randtalker]: Publishing (randtalker): 42
+
 [INFO] [randtalker]: Publishing (randtalker): 17
+
