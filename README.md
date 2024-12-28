@@ -17,3 +17,8 @@ $ git clone https://github.com/ryosuke0712/ros2.git
 ```shell
 $ cd ~/ros2_ws
 ```
+
+## randtalker.py
+0.5秒ごとにランダムな整数(1から100の範囲)を生成し,random_numbersトピックにInt32型メッセージとして送信し,送信された整数をログとして表示します。
+
+### 使用例
