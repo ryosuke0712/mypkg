@@ -22,3 +22,8 @@ $ cd ~/ros2_ws
 0.5秒ごとにランダムな整数(1から100の範囲)を生成し,random_numbersトピックにInt32型メッセージとして送信し,送信された整数をログとして表示します。
 
 ### 使用例
+```shell
+$ ros2 run mypkg randtalker
+```
+[INFO] [randtalker]: Publishing (randtalker): 42
+[INFO] [randtalker]: Publishing (randtalker): 17
