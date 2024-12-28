@@ -20,8 +20,9 @@ jobs:
         run: |
           cd /root/ros2_ws
           colcon build || { echo "Build failed"; exit 1; }
-
+          
       - name: Test talker and listener manually
+        shell: bash
         run: |
           source /opt/ros/foxy/setup.bash
           source /root/ros2_ws/install/setup.bash
