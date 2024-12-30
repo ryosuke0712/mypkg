@@ -21,10 +21,9 @@ jobs:
           apt-get update && apt-get install -y python3-pip
           pip3 install pytest
 
-      - name: Test batterystatus
+      - name: Run tests
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
-          pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
-
+          python3 -m pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
