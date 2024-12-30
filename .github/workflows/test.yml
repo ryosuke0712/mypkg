@@ -16,17 +16,15 @@ jobs:
         run: |
           ls /opt/ros/
 
-      - name: Test talker and listener manually
-        shell: bash
+      - name: Install dependencies
         run: |
-          source /opt/ros/humble/setup.bash
-          source /root/ros2_ws/install/setup.bash
-          /root/ros2_ws/install/mypkg/lib/mypkg/talker --ros-args || echo "Talker failed"
-          /root/ros2_ws/install/mypkg/lib/mypkg/listener --ros-args || echo "Listener failed"
+          apt-get update && apt-get install -y python3-pip
+          pip3 install pytest
 
-      - name: Run test_batterystatus.py
+      - name: Test batterystatus
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
           pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
+
