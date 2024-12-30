@@ -30,7 +30,7 @@ jobs:
 
       - name: Verify test file existence
         run: |
-          if [ ! -f /root/ros2_ws/src/mypkg/test/test_batterystatus.py ]; then
+          if [ ! -f /root/ros2_ws/src/mypkg/test/test_powerwatch.py ]; then
             echo "Test file not found!"
             exit 1
           fi
@@ -40,4 +40,4 @@ jobs:
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
-          python3 -m pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
+          python3 -m pytest /root/ros2_ws/src/mypkg/test/test_powerwatch.py
