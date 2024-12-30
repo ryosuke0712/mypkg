@@ -16,6 +16,11 @@ jobs:
         run: |
           ls /opt/ros/
 
+      - name: Install Python dependencies
+        run: |
+          apt-get update && apt-get install -y python3-pip
+          pip3 install pytest psutil
+
       - name: Test talker and listener manually
         shell: bash
         run: |
@@ -24,10 +29,9 @@ jobs:
           /root/ros2_ws/install/mypkg/lib/mypkg/talker --ros-args || echo "Talker failed"
           /root/ros2_ws/install/mypkg/lib/mypkg/listener --ros-args || echo "Listener failed"
 
-      - name: Test randtalker and sumlistener manually
+      - name: Run test_batterystatus.py
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
-          /root/ros2_ws/install/mypkg/lib/mypkg/randtalker --ros-args || echo "Randtalker failed"
-          /root/ros2_ws/install/mypkg/lib/mypkg/sumlistener --ros-args || echo "Sumlistener failed"
+          pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
