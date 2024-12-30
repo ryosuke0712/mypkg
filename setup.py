@@ -25,8 +25,7 @@ setup(
         'console_scripts': [
             'talker = mypkg.talker:main',
             'listener = mypkg.listener:main',
-            'randtalker = mypkg.randtalker:main',
-            'sumlistener = mypkg.sumlistener:main',
+            'batterystatus = mypkg.batterystatus:main',
         ],
     },
 )
