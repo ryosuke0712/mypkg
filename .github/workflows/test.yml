@@ -16,11 +16,6 @@ jobs:
         run: |
           ls /opt/ros/
 
-      - name: Install Python dependencies
-        run: |
-          apt-get update && apt-get install -y python3-pip
-          pip3 install pytest psutil
-
       - name: Test talker and listener manually
         shell: bash
         run: |
