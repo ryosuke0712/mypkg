@@ -26,7 +26,7 @@ jobs:
       - name: Verify test file existence
         run: |
           echo "Checking test files in /root/ros2_ws/src/mypkg/test/"
-          ls /root/ros2_ws/src/mypkg/test/
+          ls /root/ros2_ws/src/mypkg/test/ || echo "Directory does not exist!"
           if [ ! -f /root/ros2_ws/src/mypkg/test/test_powerwatch.py ]; then
             echo "Test file not found!"
             exit 1
