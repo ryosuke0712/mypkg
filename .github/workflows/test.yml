@@ -1,4 +1,4 @@
-name: test
+name: Test Workflow
 on: push
 jobs:
   test:
@@ -11,15 +11,24 @@ jobs:
         run: |
           sudo mkdir -p /root/ros2_ws/src/mypkg/
           sudo chmod -R 777 /root/ros2_ws
+          cp -r ./src/mypkg /root/ros2_ws/src/
 
       - name: Debug workspace
         run: |
+          echo "Workspace structure:"
           ls -R /root/ros2_ws/src/
 
       - name: Install dependencies
         run: |
           apt-get update && apt-get install -y python3-pip
           pip3 install pytest
+
+      - name: Verify test file existence
+        run: |
+          if [ ! -f /root/ros2_ws/src/mypkg/test/test_batterystatus.py ]; then
+            echo "Test file not found!"
+            exit 1
+          fi
 
       - name: Run tests
         shell: bash
