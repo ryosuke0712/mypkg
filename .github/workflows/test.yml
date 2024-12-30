@@ -23,13 +23,10 @@ jobs:
           echo "Workspace structure:"
           ls -R /root/ros2_ws/src/
 
-      - name: Install dependencies
-        run: |
-          apt-get update && apt-get install -y python3-pip
-          pip3 install pytest
-
       - name: Verify test file existence
         run: |
+          echo "Checking test files in /root/ros2_ws/src/mypkg/test/"
+          ls /root/ros2_ws/src/mypkg/test/
           if [ ! -f /root/ros2_ws/src/mypkg/test/test_powerwatch.py ]; then
             echo "Test file not found!"
             exit 1
