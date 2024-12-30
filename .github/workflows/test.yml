@@ -16,8 +16,7 @@ jobs:
         run: |
           sudo mkdir -p /root/ros2_ws/src/mypkg/
           sudo chmod -R 777 /root/ros2_ws
-          # ここでmypkgがsrcディレクトリ内に存在する場合のパスを修正
-          cp -r ./src/mypkg /root/ros2_ws/src/
+          cp -r ./mypkg /root/ros2_ws/src/
 
       - name: Debug workspace
         run: |
@@ -42,4 +41,3 @@ jobs:
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
           python3 -m pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
-
