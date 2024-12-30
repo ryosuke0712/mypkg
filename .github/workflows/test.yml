@@ -1,4 +1,4 @@
-name: test
+name: Test Workflow
 on: push
 jobs:
   test:
@@ -7,27 +7,37 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Debug repository structure
+        run: |
+          echo "Repository structure:"
+          ls -R .
+
       - name: Prepare workspace
         run: |
           sudo mkdir -p /root/ros2_ws/src/mypkg/
           sudo chmod -R 777 /root/ros2_ws
+          cp -r ./mypkg /root/ros2_ws/src/
 
-      - name: Check ROS 2 setup
+      - name: Debug workspace
         run: |
-          ls /opt/ros/
+          echo "Workspace structure:"
+          ls -R /root/ros2_ws/src/
 
-      - name: Test talker and listener manually
+      - name: Install dependencies
+        run: |
+          apt-get update && apt-get install -y python3-pip
+          pip3 install pytest
+
+      - name: Verify test file existence
+        run: |
+          if [ ! -f /root/ros2_ws/src/mypkg/test/test_batterystatus.py ]; then
+            echo "Test file not found!"
+            exit 1
+          fi
+
+      - name: Run tests
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
-          /root/ros2_ws/install/mypkg/lib/mypkg/talker --ros-args || echo "Talker failed"
-          /root/ros2_ws/install/mypkg/lib/mypkg/listener --ros-args || echo "Listener failed"
-
-      - name: Test randtalker and sumlistener manually
-        shell: bash
-        run: |
-          source /opt/ros/humble/setup.bash
-          source /root/ros2_ws/install/setup.bash
-          /root/ros2_ws/install/mypkg/lib/mypkg/randtalker --ros-args || echo "Randtalker failed"
-          /root/ros2_ws/install/mypkg/lib/mypkg/sumlistener --ros-args || echo "Sumlistener failed"
+          python3 -m pytest /root/ros2_ws/src/mypkg/test/test_batterystatus.py
