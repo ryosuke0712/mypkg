@@ -6,38 +6,33 @@ on:
 jobs:
   test:
     runs-on: ubuntu-20.04
-
+    container: ryuichiueda/ubuntu22.04-ros2:latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install ROS 2 and dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y curl gnupg2 lsb-release
-          sudo curl -sSL https://raw.githubusercontent.com/ros2/ros2/master/ros2-repos | sudo tee /etc/apt/sources.list.d/ros2-latest.list
-          sudo apt update
-          sudo apt install -y ros-humble-desktop python3-colcon-common-extensions python3-pip python3-rosdep
-
-      - name: Setup ROS 2 environment
-        run: |
-          source /opt/ros/humble/setup.bash
-          echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-
       - name: Prepare workspace
         run: |
-          mkdir -p /root/ros2_ws/src/mypkg/
+          sudo mkdir -p /root/ros2_ws/src/mypkg/
+          sudo chmod -R 777 /root/ros2_ws
           cp -r ./mypkg /root/ros2_ws/src/
-
-      - name: Install dependencies and build workspace
+      - name: Check ROS 2 setup
         run: |
+          ls /opt/ros/
+      - name: Install dependencies and build workspace
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-colcon-common-extensions
           source /opt/ros/humble/setup.bash
           cd /root/ros2_ws
+          rosdep init || true
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
           colcon build --packages-select mypkg
-
       - name: Run powerwatch
+        shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
           ros2 run mypkg powerwatch || echo "Powerwatch failed"
+
