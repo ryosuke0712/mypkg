@@ -21,7 +21,7 @@ $ cd ~/ros2_ws
 ## powerwatch.py
 バッテリーの残量と状態(充電中/放電中)を現在時刻とともに1秒ごとに公開します
 
-### 使用例
+### 実行例
 ```shell
 $ ros2 run mypkg powerwatch
 ```
