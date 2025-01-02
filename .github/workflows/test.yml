@@ -39,12 +39,18 @@ jobs:
       - name: Install dependencies and build workspace
         shell: bash
         run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-colcon-common-extensions
           source /opt/ros/humble/setup.bash
           cd /root/ros2_ws
           rosdep init || true
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
           colcon build --packages-select mypkg
+
+      - name: Install pytest
+        run: |
+          python3 -m pip install pytest
 
       - name: Run tests
         shell: bash
