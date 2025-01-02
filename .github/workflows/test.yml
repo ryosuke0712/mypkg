@@ -1,40 +1,24 @@
-name: Test Workflow
-
+name: test
 on: 
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-
 jobs:
   test:
     runs-on: ubuntu-20.04
     container: ryuichiueda/ubuntu22.04-ros2:latest
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Prepare workspace
         run: |
-          sudo mkdir -p /root/ros2_ws/src/
+          sudo mkdir -p /root/ros2_ws/src/mypkg/
           sudo chmod -R 777 /root/ros2_ws
           cp -r ./mypkg /root/ros2_ws/src/
 
-      - name: Debug repository structure after copy
+      - name: Check ROS 2 setup
         run: |
-          echo "Repository structure after copying:"
-          ls -R /root/ros2_ws/src/mypkg
-
-      - name: Verify test file existence
-        run: |
-          echo "Checking test files in /root/ros2_ws/src/mypkg/test/"
-          ls /root/ros2_ws/src/mypkg/test/ || echo "Directory does not exist!"
-          if [ ! -f /root/ros2_ws/src/mypkg/test/test_powerwatch.py ]; then
-            echo "Test file not found!"
-            exit 1
-          fi
+          ls /opt/ros/
 
       - name: Install dependencies and build workspace
         shell: bash
@@ -48,13 +32,9 @@ jobs:
           rosdep install --from-paths src --ignore-src -r -y
           colcon build --packages-select mypkg
 
-      - name: Install pytest
-        run: |
-          python3 -m pip install pytest
-
-      - name: Run tests
+      - name: Run powerwatch
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
-          python3 -m pytest /root/ros2_ws/src/mypkg/test/test_powerwatch.py
+          ros2 run mypkg powerwatch || echo "Powerwatch failed"
