@@ -1,25 +1,21 @@
 name: test
-on: 
+on:
   push:
     branches:
       - main
 jobs:
   test:
     runs-on: ubuntu-20.04
-    container: ryuichiueda/ubuntu22.04-ros2:latest
+
     steps:
       - uses: actions/checkout@v2
 
       - name: Prepare workspace
         run: |
-          sudo mkdir -p /root/ros2_ws/src/mypkg/
-          sudo chmod -R 777 /root/ros2_ws
+          mkdir -p /root/ros2_ws/src/mypkg/
           cp -r ./mypkg /root/ros2_ws/src/
-      - name: Check ROS 2 setup
-        run: |
-          ls /opt/ros/
+
       - name: Install dependencies and build workspace
-        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-colcon-common-extensions
@@ -29,10 +25,9 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
           colcon build --packages-select mypkg
+
       - name: Run powerwatch
-        shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
           ros2 run mypkg powerwatch || echo "Powerwatch failed"
-
