@@ -22,20 +22,10 @@ jobs:
           sudo chmod -R 777 /root/ros2_ws
           cp -r ./mypkg /root/ros2_ws/src/
 
-      - name: Install dependencies and build workspace
-        shell: bash
+      - name: Debug repository structure after copy
         run: |
-          source /opt/ros/humble/setup.bash
-          cd /root/ros2_ws
-          rosdep init || true
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-          colcon build --packages-select mypkg
-
-      - name: Debug workspace
-        run: |
-          echo "Workspace structure:"
-          ls -R /root/ros2_ws/src/
+          echo "Repository structure after copying:"
+          ls -R /root/ros2_ws/src/mypkg
 
       - name: Verify test file existence
         run: |
@@ -46,10 +36,19 @@ jobs:
             exit 1
           fi
 
+      - name: Install dependencies and build workspace
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          cd /root/ros2_ws
+          rosdep init || true
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+          colcon build --packages-select mypkg
+
       - name: Run tests
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
           source /root/ros2_ws/install/setup.bash
           python3 -m pytest /root/ros2_ws/src/mypkg/test/test_powerwatch.py
-
