@@ -18,24 +18,20 @@ $ git clone https://github.com/ryosuke0712/ros2.git
 $ cd ~/ros2_ws
 ```
 
-## randtalker.py
-0.5秒ごとにランダムな整数(1から100の範囲)を生成し,random_numbersトピックにInt32型メッセージとして送信し,送信された整数をログとして表示します。
+## powerwatch.py
+バッテリーの残量と状態(充電中/放電中)を現在時刻とともに1秒ごとに公開します
 
-### 使用例
+### 実行例
 ```shell
-$ ros2 run mypkg randtalker
-[INFO] [randtalker]: Publishing (randtalker): 42
-[INFO] [randtalker]: Publishing (randtalker): 17
+$ ros2 run mypkg powerwatch
 ```
-
-## sumlistener.py
-random_numbersトピックからメッセージを受信し、受け取った数値を合計していきます。
-
-### 使用例
+バッテリー非接続時
 ```shell
-$ ros2 run mypkg sumlistener
-[INFO] [sumlistener]: Received: 42, Running Total: 42
-[INFO] [sumlistener]: Received: 17, Running Total: 59
+[INFO] [1735828890.266916584] [powerwatch]: Battery: 83.0%, Status: Discharging, Time: 2025-01-02 23:41:30
+```
+バッテリー接続時
+```shell
+[INFO] [1735829670.922016774] [powerwatch]: Battery: 83.5%, Status: Charging, Time: 2025-01-02 23:54:30
 ```
 
 ## LICENSE
