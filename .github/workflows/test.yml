@@ -1,28 +1,47 @@
 name: Test Workflow
-on: push
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   test:
     runs-on: ubuntu-20.04
     container: ryuichiueda/ubuntu22.04-ros2:latest
+
     steps:
+      # コードを取得
       - uses: actions/checkout@v2
 
-      - name: Debug repository structure
-        run: |
-          echo "Repository structure:"
-          ls -R .
-
+      # ワークスペース準備
       - name: Prepare workspace
         run: |
-          sudo mkdir -p /root/ros2_ws/src/mypkg/
+          echo "Setting up workspace..."
+          sudo mkdir -p /root/ros2_ws/src/
           sudo chmod -R 777 /root/ros2_ws
           cp -r ./mypkg /root/ros2_ws/src/
 
+      # 依存関係のインストールとビルド
+      - name: Install dependencies and build workspace
+        run: |
+          source /opt/ros/humble/setup.bash
+          cd /root/ros2_ws
+          rosdep init || true
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+          colcon build --packages-select mypkg
+
+      # ワークスペースの確認
       - name: Debug workspace
         run: |
           echo "Workspace structure:"
           ls -R /root/ros2_ws/src/
 
+      # テストファイル確認
       - name: Verify test file existence
         run: |
           echo "Checking test files in /root/ros2_ws/src/mypkg/test/"
@@ -32,6 +51,7 @@ jobs:
             exit 1
           fi
 
+      # テストの実行
       - name: Run tests
         shell: bash
         run: |
