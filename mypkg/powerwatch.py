@@ -1,12 +1,11 @@
 #SPDX-FileCopyrightText: 2025 Ryosuke Kambara
 #SPDX-License-Identifier: BSD-3-Clause
 
-import psutil
-from datetime import datetime
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-
+import psutil
+from datetime import datetime
 
 class PowerWatch(Node):
     def __init__(self):
@@ -17,6 +16,7 @@ class PowerWatch(Node):
     def publish_battery_status(self):
         battery = psutil.sensors_battery()
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         if battery:
             status = "Charging" if battery.power_plugged else "Discharging"
             message = f"Battery: {battery.percent:.1f}%, Status: {status}, Time: {current_time}"
@@ -24,14 +24,14 @@ class PowerWatch(Node):
             message = f"No battery info available, Time: {current_time}"
 
         self.publisher.publish(String(data=message))
-        self.get_logger().info(message)
+        self.get_logger().debug(message)
 
-
-def main():
-    rclpy.init()
-    rclpy.spin(PowerWatch())
+def main(args=None):
+    rclpy.init(args=args)
+    power_watch = PowerWatch()
+    rclpy.spin(power_watch)
+    power_watch.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
