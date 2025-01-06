@@ -1,3 +1,6 @@
+#SPDX-FileCopyrightText: 2025 Ryosuke Kambara
+#SPDX-License-Identifier: BSD-3-Clause
+
 import psutil
 from datetime import datetime
 import rclpy
