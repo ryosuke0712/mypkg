@@ -15,7 +15,7 @@
 * ROS2 Humble
 
 ### 開発環境
-* Ubuntu 22.04
+* Ubuntu 20.04
 * ROS2 Foxy
 
 ## 使用方法
