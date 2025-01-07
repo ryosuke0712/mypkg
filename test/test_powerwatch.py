@@ -28,4 +28,3 @@ def test_publish_battery_status():
 
     node.destroy_node()
     rclpy.shutdown()
-
