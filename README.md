@@ -7,17 +7,6 @@
 * Ubuntu 20.04
 * Python: 3.7~3.11
 
-## 使用準備
-### リポジトリを適当な場所にクローンしてください
-```shell
-$ git clone https://github.com/ryosuke0712/ros2.git
-```
-
-### ros2_wsに移動してください
-```shell
-$ cd ~/ros2_ws
-```
-
 ## powerwatch.py
 バッテリーの残量と状態(充電中/放電中)を現在時刻とともに1秒ごとに公開します
 
