@@ -24,7 +24,6 @@ class PowerWatch(Node):
             message = f"No battery info available, Time: {current_time}"
 
         self.publisher.publish(String(data=message))
-        self.get_logger().debug(message)
 
 def main(args=None):
     rclpy.init(args=args)
