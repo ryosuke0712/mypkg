@@ -1,31 +1,51 @@
 # mypkg
 
 ## 概要
-- これはROS2のパッケージで、ロボットシステム学の授業で作成したリポジトリです.
+- これはROS2のパッケージで、ロボットシステム学の授業で作成したリポジトリです。
+- バッテリーの残量と状態をbattery_statusトピックにパブリッシュします。
+- talk_listen.launch.pyはテスト用です。
+
+## ノード
+- powerwatch:
+  バッテリーの残量と状態(充電中/放電中)を現在時刻とともに1秒ごとに公開します.
 
 ## テスト済みの環境
+### テスト環境
+* Ubuntu 22.04
+* ROS2 Humble
+
+### 開発環境
 * Ubuntu 20.04
-* Python: 3.7~3.11
+* ROS2 Foxy
 
-## powerwatch.py
-バッテリーの残量と状態(充電中/放電中)を現在時刻とともに1秒ごとに公開します
-
-### 実行例
+## 使用方法
+このコマンドで実行します。
 ```shell
 $ ros2 run mypkg powerwatch
 ```
-バッテリー非接続時
+
+トピック内容はこのコマンドで確認できます。
 ```shell
-[INFO] [1735828890.266916584] [powerwatch]: Battery: 83.0%, Status: Discharging, Time: 2025-01-02 23:41:30
+$ ros2 topic echo battery_status
 ```
-バッテリー接続時
 ```shell
-[INFO] [1735829670.922016774] [powerwatch]: Battery: 83.5%, Status: Charging, Time: 2025-01-02 23:54:30
+data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:30'
+---
+data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:31'
+---
+data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:32'
+---
+data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:33'
+---
+data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:34'
+---
+data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:35'
+---
 ```
 
 ## LICENSE
 * このソフトウェアパッケージは，3条項BSDライセンスの下，再頒布および使用が許可されます。
 
 ## Copyright
-* © 2024 Ryosuke Kambara
+* © 2025 Ryosuke Kambara
 
