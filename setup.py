@@ -24,6 +24,7 @@ setup(
     entry_points={
         'console_scripts': [
             'powerwatch = mypkg.powerwatch:main',
+            'listener = mypkg.listener:main',
         ],
     },
 )
