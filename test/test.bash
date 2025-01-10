@@ -5,11 +5,11 @@
 dir=~
 [ "$1" != "" ] && dir="$1"
 
+source $dir/ros2_ws
+
 cd $dir/ros2_ws
 
 colcon build
-
-source $dir/.bashrc
 
 timeout 60 ros2 launch mypkg talk_listen.launch.py > /tmp/powerwatch.log
 
