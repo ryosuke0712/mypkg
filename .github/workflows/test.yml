@@ -1,8 +1,5 @@
 name: test
-on: 
-  push:
-    branches:
-      - main
+on: push
 jobs:
   test:
     runs-on: ubuntu-22.04
@@ -10,28 +7,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Prepare workspace
+      - name: Install dependencies
         run: |
-          sudo mkdir -p /root/ros2_ws/src/mypkg/
-          sudo chmod -R 777 /root/ros2_ws
-          cp -r ./mypkg /root/ros2_ws/src/
-      - name: Check ROS 2 setup
+          apt-get update
+          apt-get install -y python3-pip python3-colcon-common-extensions
+          pip3 install requests
+
+      - name: Setup ROS 2 workspace
         run: |
-          ls /opt/ros/
-      - name: Install dependencies and build workspace
+          mkdir -p /root/ros2_ws/src/mypkg
+          rsync -av ./ /root/ros2_ws/src/mypkg/
+
+      - name: Build and test
         shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-colcon-common-extensions
           source /opt/ros/humble/setup.bash
           cd /root/ros2_ws
-          rosdep init || true
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
           colcon build --packages-select mypkg
-      - name: Run powerwatch
-        shell: bash
-        run: |
-          source /opt/ros/humble/setup.bash
-          source /root/ros2_ws/install/setup.bash
-          ros2 run mypkg powerwatch || echo "Powerwatch failed"
+          bash -xv ./src/mypkg/test/test.bash /root
+
