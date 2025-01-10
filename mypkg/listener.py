@@ -18,12 +18,7 @@ class BatteryStatusListener(Node):
     def listener_callback(self, msg):
         self.get_logger().info(f'Received message: {msg.data}')
 
-def main(args=None):
-    rclpy.init(args=args)
+def main():
+    rclpy.init()
     node = BatteryStatusListener()
     rclpy.spin(node)
-    rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
-
