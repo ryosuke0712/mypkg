@@ -22,7 +22,6 @@ class PowerWatch(Node):
             message = f"Battery: {battery.percent:.1f}%, Status: {status}, Time: {current_time}"
         else:
             message = f"No battery info available, Time: {current_time}"
-
         self.publisher.publish(String(data=message))
 
 def main(args=None):
@@ -34,4 +33,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
