@@ -3,7 +3,7 @@
 ## 概要
 - これはROS2のパッケージで、ロボットシステム学の授業で作成したリポジトリです。
 - バッテリーの残量と状態をbattery_statusトピックにパブリッシュします。
-- talk_listen.launch.pyはテスト用です。
+- listener.py , talk_listen.launch.pyはテスト用です。
 
 ## ノード
 - powerwatch:
@@ -29,17 +29,17 @@ $ ros2 run mypkg powerwatch
 $ ros2 topic echo battery_status
 ```
 ```shell
-data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:30'
+data: 'Battery: 73.5%, Status: Discharging, Time: 2025-01-11 15:33:00'
 ---
-data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:31'
+data: 'Battery: 73.5%, Status: Discharging, Time: 2025-01-11 15:33:01'
 ---
-data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:32'
+data: 'Battery: 73.5%, Status: Discharging, Time: 2025-01-11 15:33:02'
 ---
-data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:33'
+data: 'Battery: 73.5%, Status: Discharging, Time: 2025-01-11 15:33:03'
 ---
-data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:34'
+data: 'Battery: 73.5%, Status: Discharging, Time: 2025-01-11 15:33:04'
 ---
-data: 'Battery: 61.5%, Status: Discharging, Time: 2025-01-07 23:34:35'
+data: 'Battery: 73.5%, Status: Discharging, Time: 2025-01-11 15:33:05'
 ---
 ```
 
